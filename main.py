@@ -50,5 +50,5 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 async def webhook(item: dict):
     print(item)
     temps.append(item["uplink_message"]["decoded_payload"])
-    await manager.broadcast(item["uplink_message"]["decoded_payload"])
+    await manager.broadcast(str(item["uplink_message"]["decoded_payload"]))
     return {"success": True}
