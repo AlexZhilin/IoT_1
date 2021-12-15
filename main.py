@@ -24,6 +24,7 @@ class ConnectionManager:
 
     async def broadcast(self, message: str):
         for connection in self.active_connections:
+            print('Sended', message, 'to', connection)
             await connection.send_text(message)
 
 templates = Jinja2Templates(directory='templates')
