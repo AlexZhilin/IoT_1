@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #image {
+                display: grid;
+                grid-template-columns: repeat(10, 40px);
+                grid-template-rows: repeat(10, 40px);
+            }
+            .pixel {
+                user-select:  none;
+                background-color: antiquewhite;
+            }
+            .pixel:hover {
+                border: 1px solid yellow;
+            }
+        </style>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>TEMP</h1>
+        <h2>Your id: <span id="ws-id"></span></h2>
+        <ul id="image">
+            {% for temp in temps %}
+            <li>{{ temp }}</li>
+            {% endfor %}
+        </div>
+        <script>
+            function randomColor() {
+                return Math.floor(Math.random()*16777215).toString(16);
+            }
+            var client_id = randomColor();
+            document.querySelector("#ws-id").textContent = client_id;
+
+            var ws = new WebSocket(`wss://${document.location.hostname}/ws/${client_id}`);
+            ws.onmessage = function(event) {
+                var data = event.data;
+                var ul = document.getElementById("image");
+                var li = document.createElement('li');
+                li.textContent = data;
+            };
+
+        </script>
+    </body>
+</html>
